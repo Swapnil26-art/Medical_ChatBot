@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Medical AI Chatbot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="ocean">
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+
+    <div class="chat-container">
+        <h1 class="title">🩺 MedBot - Your Medical Assistant</h1>
+        <div id="chatbox" class="chatbox">
+            <div class="bot-message">Hello! I'm MedBot. Ask me any medical question.</div>
+        </div>
+
+        <form id="chat-form" class="input-form">
+            <input type="text" id="user-input" placeholder="Type your question..." autocomplete="off" required>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById("chat-form");
+        const userInput = document.getElementById("user-input");
+        const chatbox = document.getElementById("chatbox");
+
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+            const userMsg = userInput.value;
+            chatbox.innerHTML += `<div class="user-message">${userMsg}</div>`;
+            userInput.value = "";
+
+            const res = await fetch("/get", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: `msg=${encodeURIComponent(userMsg)}`
+            });
+
+            const data = await res.text();
+            chatbox.innerHTML += `<div class="bot-message">${data}</div>`;
+            chatbox.scrollTop = chatbox.scrollHeight;
+        };
+    </script>
+</body>
+</html>
