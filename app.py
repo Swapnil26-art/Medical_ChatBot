@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 load_dotenv()
 
-PINECONE_API_KEY= ''
+PINECONE_API_KEY= 'pcsk_7Uptb3_LbfTHuG382zuCcPoEoDUDM9y3TZ8XVU7bZzssbB87o2WyntQtZCBSBjghxpayTu'
 OPENAI_API_KEY=os.environ.get('AZURE_OPENAI_API_KEY')
 
 os.environ["PINECONE_API_KEY"] = PINECONE_API_KEY
