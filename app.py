@@ -47,14 +47,7 @@ docsearch = PineconeVectorStore.from_existing_index(
 retriever = docsearch.as_retriever(search_type="similarity", search_kwargs={"k":2})
 
 
-llm = AzureChatOpenAI(
-    deployment_name="chatengienee",  # your Azure model deployment name
-    api_key=os.environ["AZURE_OPENAI_API_KEY"],
-    azure_endpoint=os.environ["AZURE_ENDPOINT"],
-    api_version="2024-02-01",
-    temperature=0.4,
-    max_tokens=500
-)
+
 prompt_template = ChatPromptTemplate.from_messages([
     ("system", "You are an assistant for medical questions. Use the context to answer accurately. Be brief.\n\n{context}"),
     ("human", "{input}")
